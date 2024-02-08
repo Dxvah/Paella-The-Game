@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public TMP_Text monedastext;
+    public TMP_Text oleadastext;
+    public TMP_Text puntuaciontext;
     public Canvas ui;
     public Canvas canvasyouwin;
     public int MonedasTotales { get { return Monedas; } }
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         monedastext.text = MonedasTotales.ToString();
+        oleadastext.text = Oleadas.ToString();
         tiempo += Time.deltaTime;
         ControlDeOleadas();
     }
@@ -84,6 +87,8 @@ public class GameManager : MonoBehaviour
             canvasyouwin.gameObject.SetActive(true);
             ui.gameObject.SetActive(false);
             Time.timeScale = 0;
+            float puntuacion = EnemigosDerrotados * 2 + Monedas;
+            puntuaciontext.text = puntuacion.ToString();
         }
     }
 
