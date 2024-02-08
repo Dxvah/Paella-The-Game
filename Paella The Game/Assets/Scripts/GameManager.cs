@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public TMP_Text monedastext;
+    public Canvas ui;
+    public Canvas canvasyouwin;
     public int MonedasTotales { get { return Monedas; } }
 
     //-------------------------------------
@@ -23,6 +25,8 @@ public class GameManager : MonoBehaviour
 //-------------------------------------------------------------------------------------------------------------------------
     public void Start()
     {
+        canvasyouwin.gameObject.SetActive(false);
+        ui.gameObject.SetActive(true);
         Monedas = 0;
         EnemigosDerrotados = 0;
     }
@@ -77,7 +81,9 @@ public class GameManager : MonoBehaviour
         else if (Oleadas == 3 && EnOleada == true && EnemigosDerrotados == 49)
         {
             EnOleada = false;
-            Debug.Log("El banco se ha salvado");
+            canvasyouwin.gameObject.SetActive(true);
+            ui.gameObject.SetActive(false);
+            Time.timeScale = 0;
         }
     }
 

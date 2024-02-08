@@ -13,8 +13,10 @@ public class Enemigos : MonoBehaviour
     public float minVelocidad, maxVelocidad, velocidad;
     public int vidas = 4, daño = 1, cooldownAtaque = 5;
     public bool atacando = false;
+    public Animator viejaAnim;
 
-//-------------------------------------------------------------------------------------------------------------------------
+
+    //-------------------------------------------------------------------------------------------------------------------------
     public void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();                             //--- Buscar el GameManager
@@ -29,12 +31,17 @@ public class Enemigos : MonoBehaviour
         float DistanciaAlBanco = Vector3.Distance(transform.position, banco.transform.position);
         bancoGO = banco.GetComponent<Banco>();
         transform.LookAt(bancoGO.transform);
-        
+        GameObject player = GameObject.FindWithTag("Player");
+        Animator playerAnimator = player.GetComponent<Animator>();
+
 
         if (atacando == false)
         {
+
             transform.position = Vector3.MoveTowards(transform.position, banco.transform.position, velocidad);      //---Persecución del Banco.
-            
+            viejaAnim.SetTrigger("correr");
+            viejaAnim.ResetTrigger("pegando");
+
             if (DistanciaAlBanco <= bancoGO.rango)
             {
                 StartCoroutine(AtacandoElBanco());
@@ -43,36 +50,43 @@ public class Enemigos : MonoBehaviour
 
         if(DistanciaAlBanco > bancoGO.rango)
         {
+
             atacando = false;
+
         }
     }
 
 //-------------------------------------------------------------------------------------------------------------------------
    private IEnumerator AtacandoElBanco()                                            //---Atacar el Banco
-{
+{   
+
     atacando = true;
     for(int i = 0; i < 50; i++)
     {
-        bancoGO.Vida -= daño;
+            viejaAnim.SetTrigger("pegando");
+            viejaAnim.ResetTrigger("correr");
+            bancoGO.Vida -= daño;
         i++;
         yield return new WaitForSeconds(cooldownAtaque);
     }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------
-   public void OnCollisionEnter(Collision collision)
+   public void OnCollisionStay(Collision collision)
    {
-        if (collision.gameObject.tag == "Player")                                          //---Recibir Daño
+        GameObject player = GameObject.FindWithTag("Player");
+        Animator playerAnimator = player.GetComponent<Animator>();
+        if (collision.gameObject.tag == "Player" && playerAnimator && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("lucha"))                                         //---Recibir Daño
         {
             Debug.Log("Golpe");
             vidas -= dañoRecibido;
         }
 
         if (vidas < 1)
-     {
-        gameManager.MonedasPorEnemigo(Monedas);
+        {
+            gameManager.MonedasPorEnemigo(Monedas);
 
-        Destroy(gameObject);
-     }
+            Destroy(gameObject);
+        }
    }
 }

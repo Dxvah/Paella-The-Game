@@ -8,8 +8,9 @@ public class Banco : MonoBehaviour
     public float Vida = 50f, vidaMaxima = 50f;
     public float rango = 3.5f;
     public Image vidaBanco;
+    public Canvas ui;
+    public Canvas canvasfinal;
 
-    
     void Start()
     {
         
@@ -21,7 +22,9 @@ public class Banco : MonoBehaviour
         vidaBanco.fillAmount = Vida/vidaMaxima;
         if(Vida <= 0)
         {
-            Debug.Log("Perdiste");
+            canvasfinal.gameObject.SetActive(true);
+            ui.gameObject.SetActive(false);
+            Time.timeScale = 0;
         }
     }
 

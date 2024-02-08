@@ -69,6 +69,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fd3e2467ad7f4ee46b1373b60f7da3e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3219000683692532447}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fd3e2467ad7f4ee46b1373b60f7da3e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -710112073612443983}
   m_SourcePrefab: {fileID: 100100000, guid: fd3e2467ad7f4ee46b1373b60f7da3e6, type: 3}
 --- !u!1 &1164383522248312651 stripped
 GameObject:
@@ -115,13 +118,35 @@ MonoBehaviour:
   Banco: Banco
   Monedas: 5
   "da\xF1oRecibido": 1
-  minVelocidad: 1
-  maxVelocidad: 2
+  minVelocidad: 4
+  maxVelocidad: 8
   velocidad: 0
   vidas: 4
-  "da\xF1o": 1
+  "da\xF1o": 2
   cooldownAtaque: 5
   atacando: 0
+  viejaAnim: {fileID: -710112073612443983}
+--- !u!95 &-710112073612443983
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164383522248312651}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 78cb82ff17c9bb24c9a3ae3b638b5b7c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &1973535447088733681 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fd3e2467ad7f4ee46b1373b60f7da3e6, type: 3}

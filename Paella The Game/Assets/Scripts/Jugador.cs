@@ -13,11 +13,11 @@ public class Jugador : MonoBehaviour
     public string Banco = "Banco", Enemigo = "Enemy";
     public float velocidadBoost, velocidadNormal, velocidadActual, velocidadRapida, velRotacion, fuerzaSalto, vida, vidaInicial = 25, radioDelCirculo = 5f, manaMaximo = 15;
     public int mana, manaInicial = 3, cooldownBoost = 5;
-    public bool PuedeSaltar = false, EnSuelo = false, saltarSi = false;
+    public bool PuedeSaltar = false, EnSuelo = false, saltarSi = false, caminandoSi = true;
     public Image barravida, barramana;
     public Canvas ui;
     public Canvas canvasfinal;
-    public Button reintentar;
+    public Animator playerAnim;
     
     
 
@@ -44,6 +44,13 @@ public class Jugador : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             jugadorTransform.Rotate(0, velRotacion * Time.deltaTime, 0);
+        }
+        if(Input.GetMouseButtonDown(0))
+        {
+            playerAnim.SetTrigger("lucha");
+            playerAnim.ResetTrigger("idle");
+
+
         }
 
  //-------------------------------------------------------------------------------------------------------------------------
@@ -83,10 +90,14 @@ public class Jugador : MonoBehaviour
         if (Input.GetKey(KeyCode.W) && EnSuelo == true)
         {
             fisicas.velocity = transform.forward * velocidadActual * Time.deltaTime;
+            playerAnim.SetTrigger("correr");
+            playerAnim.ResetTrigger("idle");
         }
         if (Input.GetKey(KeyCode.S) && EnSuelo == true)
         {
             fisicas.velocity = -transform.forward * velocidadActual * Time.deltaTime;
+            playerAnim.SetTrigger("correr");
+            playerAnim.ResetTrigger("idle");
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------
@@ -154,7 +165,7 @@ public class Jugador : MonoBehaviour
        canvasfinal.gameObject.SetActive(true);
        ui.gameObject.SetActive(false);
        Time.timeScale = 0;
-       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+       
     }
 
 //-------------------------------------------------------------------------------------------------------------------------
